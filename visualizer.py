@@ -15,7 +15,7 @@ class Plotter:
 		self.window_shape = window_shape
 		self.interval = interval
 		self.repeat = repeat
-		self.x = np.arange(start=0, stop=arr.shape[1])	# getting size of arr
+		self.x = np.arange(start=0, stop=arr.get_len())  # getting size of arr
 
 	@staticmethod
 	def on_close(event):
@@ -23,7 +23,7 @@ class Plotter:
 			sys.exit(0)
 
 	def animate(self, at):
-		[self.bar_collections[i].set_height(self.arr[at][i]) for i in range(len(self.bar_collections))]
+		[self.bar_collections[i].set_height(self.arr.get(at, i)) for i in range(len(self.bar_collections))]
 		# self.fig.canvas.draw()  # forces canavas to draw a frame
 
 	def plot_util(self):
@@ -56,4 +56,7 @@ class Plotter:
 					self.plot_util()
 			else:
 				self.plot_util()
-		except:	pass
+		except:
+			pass
+		finally:
+			plt.show()
